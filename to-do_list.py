@@ -17,8 +17,7 @@ tasks = load_tasks()
 
 def add_todo():
     task = input("Enter the name of the task :")
-    task_name = task + " - m"
-    tasks.append(task_name)
+    tasks.append(task)
     save_tasks()
     print("Task has been added successfully!")
 
@@ -36,7 +35,8 @@ def update_task():
     else:
         up_task = input("Enter the name of the updated task :")
         tasks[up_choice - 1] = up_task
-        # tasks.insert(up_choice, up_task)
+        # tasks.insert(up_choice - 1, up_task)
+        # del tasks[up_choice]
         save_tasks()
         print("The task has been updated successfully!")
 
@@ -53,7 +53,7 @@ def mark_comp_task():
         print("Invalid task number!")
     else:
         comp = tasks[mac_choice - 1] + " - COMPLETED"
-        tasks.insert(mac_choice - 1, comp)
+        tasks[mac_choice - 1] = comp
         save_tasks()
         print("The task has been successfully marked as complete!")
 
@@ -86,8 +86,8 @@ def set_due_date():
         print("Invalid task number!")
     else:
         due_date = input("Enter the due date of the task :")
-        tasks.insert(dd_choice - 1, f"\tDue Date : {due_date}")
-
+        dd = f"{tasks[dd_choice - 1]}\tDue Date : {due_date}"
+        tasks[dd_choice - 1] = dd
 
 def set_priority():
     PRIORITY = ["c", "h", "m", "l", "o"]
@@ -108,7 +108,7 @@ def set_priority():
         print("Invalid task number!")
     else:
         priority = input("Enter the priority of the task from above :")
-        tasks.insert(prior_choice - 1, f"\tPriority : {priority}")
+        tasks[prior_choice - 1] = f"{tasks[prior_choice - 1]} - {priority}"
         # if priority == "c":
         #     list.insert(0, list[prior_choice - 1])
         #     del list[prior_choice]
@@ -157,10 +157,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-list = ["a", "b", "c"]
-ind = list.index("b")
-item = list[ind]
-list.insert(0, item)
-del list[ind + 1]
-print(list)
